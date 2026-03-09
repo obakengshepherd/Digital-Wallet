@@ -44,6 +44,7 @@ not perfectly reliable.
 ## Section 3 — Scope of This Implementation
 
 **In scope:**
+
 - Wallet creation per user, per currency
 - Balance deposits (external funding simulation)
 - Peer-to-peer transfers between wallets
@@ -55,6 +56,7 @@ not perfectly reliable.
 - Rate limiting on write endpoints
 
 **Out of scope:**
+
 - Integration with real payment processors or banking rails
 - Multi-currency conversion
 - Scheduled or recurring transfers
@@ -85,3 +87,5 @@ The system is working correctly when:
 
 6. The p99 latency for `POST /wallets/transfer` does not exceed 200ms under the defined peak
    load of 500 transfers per second.
+
+-
