@@ -128,13 +128,15 @@ event ordering.
 
 ## Component Responsibilities Summary
 
-| Component        | Responsibility                                        | Communicates Via       |
-|------------------|-------------------------------------------------------|------------------------|
-| Load Balancer    | TLS termination, health routing, round-robin dispatch | HTTPS (inbound)        |
-| API Layer        | Request validation, auth, rate limiting, routing      | HTTP (internal)        |
-| WalletService    | Wallet CRUD, balance reads with cache                 | PostgreSQL + Redis     |
-| TransferService  | Atomic transfers, idempotency, event publishing       | PostgreSQL + Kafka     |
-| TransactionService | Transaction history retrieval, pagination           | PostgreSQL (read replica) |
-| Redis            | Balance cache, idempotency key store                  | In-memory              |
-| PostgreSQL       | Source of truth for all financial state               | TCP                    |
-| Kafka            | Event stream for downstream consumers                 | Kafka protocol         |
+| Component          | Responsibility                                        | Communicates Via          |
+| ------------------ | ----------------------------------------------------- | ------------------------- |
+| Load Balancer      | TLS termination, health routing, round-robin dispatch | HTTPS (inbound)           |
+| API Layer          | Request validation, auth, rate limiting, routing      | HTTP (internal)           |
+| WalletService      | Wallet CRUD, balance reads with cache                 | PostgreSQL + Redis        |
+| TransferService    | Atomic transfers, idempotency, event publishing       | PostgreSQL + Kafka        |
+| TransactionService | Transaction history retrieval, pagination             | PostgreSQL (read replica) |
+| Redis              | Balance cache, idempotency key store                  | In-memory                 |
+| PostgreSQL         | Source of truth for all financial state               | TCP                       |
+| Kafka              | Event stream for downstream consumers                 | Kafka protocol            |
+
+-
