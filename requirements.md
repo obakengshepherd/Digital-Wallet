@@ -38,12 +38,14 @@ every successfully committed transfer.
 ## Non-Functional Requirements
 
 ### Availability
+
 - **NFR-01** — The system shall maintain 99.9% uptime, allowing a maximum of ~8.7 hours
   of unplanned downtime per year.
 - **NFR-02** — Scheduled maintenance windows shall not exceed 30 minutes and shall be
   communicated 24 hours in advance.
 
 ### Latency
+
 - **NFR-03** — `POST /wallets/transfer` p95 latency ≤ 150ms, p99 ≤ 200ms under peak load.
 - **NFR-04** — `GET /wallets/{id}` (balance read) p95 latency ≤ 20ms (cache hit),
   ≤ 50ms (cache miss).
@@ -51,24 +53,28 @@ every successfully committed transfer.
   50 transactions.
 
 ### Throughput
+
 - **NFR-06** — The system shall sustain 500 transfer operations per second at peak load
   without degradation in latency targets.
 - **NFR-07** — The system shall handle 50,000 daily active wallets with no per-user
   throttling below 10 requests per minute.
 
 ### Durability
+
 - **NFR-08** — Zero tolerance for committed transaction data loss. Any transaction that
   receives a success response must be permanently recorded and recoverable.
 - **NFR-09** — The ledger must be reconstructible from `ledger_entries` alone — no
   balance state outside the ledger is authoritative.
 
 ### Consistency
+
 - **NFR-10** — Balance modifications are strongly consistent. A read immediately following
   a committed write must reflect the new balance.
 - **NFR-11** — Cache reads may serve data up to 60 seconds stale. This is acceptable for
   balance display but not for transfer validation, which always reads from the primary.
 
 ### Security
+
 - **NFR-12** — All API endpoints require a valid Bearer token. Unauthenticated requests
   receive 401.
 - **NFR-13** — Rate limiting: 100 requests per minute per authenticated user; 10 transfer
@@ -78,16 +84,16 @@ every successfully committed transfer.
 
 ## Estimated Traffic
 
-| Metric                          | Estimate                            |
-|---------------------------------|-------------------------------------|
-| Registered users                | 500,000                             |
-| Daily active users              | 50,000                              |
-| Average transfers per user/day  | 3                                   |
-| Peak transfer rate              | 500 transfers/second                |
-| Peak balance read rate          | 2,000 reads/second                  |
-| Ledger entries per day          | ~300,000                            |
-| Kafka events per day            | ~300,000 (one per transfer/deposit) |
-| Average transfer payload size   | ~512 bytes                          |
+| Metric                         | Estimate                            |
+| ------------------------------ | ----------------------------------- |
+| Registered users               | 500,000                             |
+| Daily active users             | 50,000                              |
+| Average transfers per user/day | 3                                   |
+| Peak transfer rate             | 500 transfers/second                |
+| Peak balance read rate         | 2,000 reads/second                  |
+| Ledger entries per day         | ~300,000                            |
+| Kafka events per day           | ~300,000 (one per transfer/deposit) |
+| Average transfer payload size  | ~512 bytes                          |
 
 ---
 
@@ -159,3 +165,5 @@ graph LR
     FD -->|FraudDecision| K2[Kafka: fraud.decisions]
     K2 -->|consume| TS2[TransferService alert handler]
 ```
+
+-
