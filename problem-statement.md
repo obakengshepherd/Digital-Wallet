@@ -88,4 +88,4 @@ The system is working correctly when:
 6. The p99 latency for `POST /wallets/transfer` does not exceed 200ms under the defined peak
    load of 500 transfers per second.
 
---
+---
